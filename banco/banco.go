@@ -7,7 +7,6 @@ import (
 	"path/filepath"
 
 	"fyne.io/fyne/v2"
-	"fyne.io/fyne/v2/storage"
 	_ "github.com/mattn/go-sqlite3"
 )
 
@@ -15,25 +14,21 @@ var conn *sql.DB
 
 // deve ser chamado depois de ter criado o app
 func CriarBanco(a fyne.App) {
-	arquivos := a.Storage()
-
-	uriArquivoDB := storage.NewFileURI(filepath.Join(arquivos.RootURI().Path(), "banco.db"))
-	existe, erro := storage.Exists(uriArquivoDB)
-	if erro != nil {
-		fmt.Println(erro)
-		os.Exit(1)
-	}
-
-	if existe == false {
-		fmt.Println("criando em:", filepath.Join(arquivos.RootURI().Path(), "banco.db"))
-		db, erro := sql.Open("sqlite3", filepath.Join(arquivos.RootURI().Path(), "banco.db"))
+	_, erro := os.Stat("/banco.db")
+	if os.IsNotExist(erro) {
+		f, _ := os.Create("/banco.db")
+		f.Close()
+		conn, erro = sql.Open("sqlite3", filepath.Join("./banco.db"))
 		if erro != nil {
 			fmt.Println(erro)
 			os.Exit(1)
 		}
-		defer db.Close()
 	} else {
-		fmt.Println("criado em:", uriArquivoDB.String())
+		conn, erro = sql.Open("sqlite3", "./banco.db")
+		if erro != nil {
+			fmt.Println(erro)
+			os.Exit(1)
+		}
 	}
 }
 

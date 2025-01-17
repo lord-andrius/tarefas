@@ -13,4 +13,8 @@ func InicializaTelas(app fyne.App) {
 func init() {
 	Login = binding.NewString()
 	Senha = binding.NewString()
+	NomeTarefa = binding.NewString()
+	DescricaoTarefa = binding.NewString()
+	Concluida = false
+	ConcluidaTarefa = binding.NewBool()
 }

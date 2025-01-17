@@ -1,6 +1,8 @@
 package telas
 
 import (
+	"tarefa/banco"
+
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/data/binding"
@@ -45,7 +47,7 @@ func TelaLogin(janela fyne.Window) {
 		textoSenha, _ := Senha.Get()
 		logar(textoLogin, textoSenha)
 		if estadoLogin == LoginFoiAceito {
-			janela.SetContent(widget.NewLabel("Login Foi Aceito"))
+			TelaTarefas(janela, true)
 		} else {
 			TelaLogin(janela)
 		}
@@ -56,9 +58,14 @@ func TelaLogin(janela fyne.Window) {
 }
 
 func logar(login, senha string) {
-	if login == "admin" && senha == "admin" {
-		estadoLogin = LoginFoiAceito
-	} else {
+	u, achou := banco.PegarUsuarioPeloLogin(login)
+
+	if !achou {
 		estadoLogin = LoginFoiRecusado
 	}
+
+	if u.Senha == senha {
+		estadoLogin = LoginFoiAceito
+	}
+
 }
