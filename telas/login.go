@@ -1,15 +1,16 @@
 package telas
 
-import "fyne.io/fyne/v2"
-import "fyne.io/fyne/v2/widget"
-import "fyne.io/fyne/v2/container"
-import "fyne.io/fyne/v2/layout"
-import "fyne.io/fyne/v2/data/binding"
+import (
+	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/container"
+	"fyne.io/fyne/v2/data/binding"
+	"fyne.io/fyne/v2/layout"
+	"fyne.io/fyne/v2/widget"
+)
 
 // inicializados no telas.go
 var Login binding.String
 var Senha binding.String
-
 
 const (
 	LoginFoiAceito = iota
@@ -33,14 +34,14 @@ func TelaLogin(janela fyne.Window) {
 
 	containerLogin := container.New(layout.NewVBoxLayout(), formularioLogin)
 
-	conteudoPrincipal := container.New(layout.NewCenterLayout(), containerLogin)	
+	conteudoPrincipal := container.New(layout.NewCenterLayout(), containerLogin)
 
 	if estadoLogin == LoginFoiRecusado {
 		containerLogin.Add(widget.NewLabel("Login ou Senha incorretos"))
 	}
 
 	containerLogin.Add(widget.NewButton("Logar", func() {
-		textoLogin, _ := Login.Get()	
+		textoLogin, _ := Login.Get()
 		textoSenha, _ := Senha.Get()
 		logar(textoLogin, textoSenha)
 		if estadoLogin == LoginFoiAceito {
@@ -54,10 +55,9 @@ func TelaLogin(janela fyne.Window) {
 	janela.SetContent(conteudoPrincipal)
 }
 
-
 func logar(login, senha string) {
 	if login == "admin" && senha == "admin" {
-		estadoLogin = LoginFoiAceito 
+		estadoLogin = LoginFoiAceito
 	} else {
 		estadoLogin = LoginFoiRecusado
 	}

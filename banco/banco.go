@@ -1,13 +1,14 @@
 package banco
 
 import (
-	"fyne.io/fyne/v2"
-	"fyne.io/fyne/v2/storage"
-	 "database/sql"
-	_ "github.com/mattn/go-sqlite3"
+	"database/sql"
 	"fmt" // joga isso fora quando for compilar para android
 	"os"
 	"path/filepath"
+
+	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/storage"
+	_ "github.com/mattn/go-sqlite3"
 )
 
 // deve ser chamado depois de ter criado o app
