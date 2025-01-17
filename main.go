@@ -13,6 +13,7 @@ const ALTURA float32 = 740
 
 func main() {
 	a := app.NewWithID("com.tarefas")
+	telas.InicializaTelas(a)
 	banco.CriarBanco(a)
 	janela := a.NewWindow("Tarefas")
 	janela.Resize(fyne.NewSize(LARGURA, ALTURA))

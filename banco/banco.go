@@ -11,6 +11,8 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
+var conn *sql.DB
+
 // deve ser chamado depois de ter criado o app
 func CriarBanco(a fyne.App) {
 	arquivos := a.Storage()
@@ -22,7 +24,7 @@ func CriarBanco(a fyne.App) {
 		os.Exit(1)
 	}
 
-	if existe == false{
+	if existe == false {
 		fmt.Println("criando em:", filepath.Join(arquivos.RootURI().Path(), "banco.db"))
 		db, erro := sql.Open("sqlite3", filepath.Join(arquivos.RootURI().Path(), "banco.db"))
 		if erro != nil {
@@ -33,4 +35,8 @@ func CriarBanco(a fyne.App) {
 	} else {
 		fmt.Println("criado em:", uriArquivoDB.String())
 	}
+}
+
+func PegarConexao() *sql.DB {
+	return conn
 }
