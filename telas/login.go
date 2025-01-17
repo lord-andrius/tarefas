@@ -36,7 +36,7 @@ func TelaLogin(janela fyne.Window) {
 
 	containerLogin := container.New(layout.NewVBoxLayout(), formularioLogin)
 
-	conteudoPrincipal := container.New(layout.NewCenterLayout(), containerLogin)
+	conteudoPrincipal := container.New(layout.NewGridLayoutWithRows(3), layout.NewSpacer(), containerLogin, layout.NewSpacer())
 
 	if estadoLogin == LoginFoiRecusado {
 		containerLogin.Add(widget.NewLabel("Login ou Senha incorretos"))
