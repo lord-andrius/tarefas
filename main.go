@@ -17,6 +17,7 @@ func main() {
 	a := app.NewWithID("com.tarefas")
 	if err := os.Chdir(a.Storage().RootURI().Path()); err != nil {
 		log.Fatal(err)
+		os.Exit(1)
 	}
 	banco.CriarBanco(a)
 	telas.InicializaTelas(a)
